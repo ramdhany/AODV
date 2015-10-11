@@ -1,0 +1,78 @@
+This file specifies how the OpenCOM-AODV protocol framework can be installed
+and executed on Windows XP. I'm currently testing the protocol on Linux. Installation instructions for Linux 
+will follow. This protocol uses source code from JADHOC 0.2 from Bremen University under the GNU license.
+
+On Windows
+----------
+1. Install Java 2 Runtime Environment or SDK (http://java.sun.com)
+	Once installed, set the following environment variables,
+		set JAVA_HOME=C:\j2sdk1.4.1_02
+		set PATH=%JAVA_HOME%\bin;%PATH%
+
+
+2. Install WinPcap for Windows (http://winpcap.polito.it/)
+	You can use the WinPcap bundled with this version (WinPcap.exe)
+
+	To install run the \tools\WinPcap_4_0.exe
+
+3. Install Jpcap (http://netresearch.ics.uci.edu/kfujii/jpcap/doc/index.html)
+	You can use the Jpcap that is bundled with this version (recommended),
+	(jpcap-0.5.1) - see \tools\JPCapSetUp.exe
+
+	Running JPCapSetUp.exe will ,
+
+	a) Copy "lib\Jpcap.dll" into "[JRE directory]\bin" or
+   		"[JRE directory]\lib\ext\x86"
+
+	b) Copy "lib\jpcap.jar" into "[JRE directory]\lib\ext"
+
+	c) If you installed J2SE SDK, it will copy "lib\jpcap.jar" into
+		"[SDK directory]\jre\lib\ext".
+
+	Note: [JRE directory] is usually "C:\Program Files\Java\j2re*".
+	      [SDK directory] is usually "C:\j2sdk*".
+
+
+4. Copy the following  .exe files 
+    - EnableRouter.exe
+    - IPRoute.exe
+
+   in .\tools directory (where xx is either xp or 2k)
+   to the system commands directory specified in the aodv.cfg configuration file.
+   (usually, for XP it is C:\Windows\system32 and for Win 2K C:\WINNT\system32).
+
+5. Install OpenCOMJ (OpenCOM v1)
+
+
+6. Create a project in Eclipse (if you are using Eclipse) and import all the AODV protocol files
+	You will also need to import OpenCOMJ classes into the project. Alternatively, you can import all 
+      OpenCOMJ source code in a new project which you will include in the AODV project.
+	
+	Check if the jpcap.jar library is imported into your project as well.
+
+
+7. Hiding other nodes from the current node
+	
+	input the MAC addresses of the nodes to hide in the .\macfilter.txt file. Packets from these
+	nodes will be filtered and discarded by JPCap
+
+
+
+8. Running AODVOverlay
+
+	
+	aodv.cfg contains the protocol parameters. Modify these config parameters to suit your environment.
+	E.g. you need to change the IP address, default gateway and the network interface 
+	
+	You can use the .\utils\LstIfc.java program to get the network interface in the following format:
+	\Device\NPF_{A06BA48E-A42D-4A12-A5C5-81736F0FCD6F} 
+	
+	For more details about config file parameters, have a look at
+	.\sample-jadhoc.cfg
+
+	The configuration of components needed for WinXP platform is specified in .\aodvwinxp.xml
+
+	the package .\example contains sample code about how to use the AODV framework
+
+
+(C) Copyright Lancaster University, 2007.

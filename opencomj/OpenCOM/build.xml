@@ -1,0 +1,42 @@
+<!-- Version 1.3.2 -->
+<project name="OpenCOM" default="compile">
+	<property environment="env"/>
+	<property name ="base.dir" value="${env.OpenCOM}"/>
+	<property name ="java.dir" value="${env.JRE}/lib/ext"/>
+	<property name="src.dir"     value="${base.dir}/OpenCOM"/>
+    	<property name="classes.dir" value="${base.dir}/classes"/>
+    	<property name="jar.dir"     value="${base.dir}/jar"/>
+    	<target name="clean" depends="unregister">
+        	<delete dir="${classes.dir}"/>
+   		<delete dir="${jar.dir}"/>
+    	</target>
+    	<target name="compile">
+        	<mkdir dir="${classes.dir}"/>
+<<<<<<< build.xml
+        	<javac srcdir="${base.dir}/OpenCOM" destdir="${classes.dir}"/>
+=======
+        	<javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+                <javac srcdir="${src.dir}/Visualisation" destdir="${classes.dir}"/>
+>>>>>>> 1.4
+    	</target>
+    	<target name="jar" depends="compile">
+        	<mkdir dir="${jar.dir}"/>
+		<mkdir dir="${src.dir}/classes/OpenCOM" />
+		<copy todir="${src.dir}/classes/OpenCOM">
+    			<fileset dir="${classes.dir}/OpenCOM"/>
+  		</copy>
+        	<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${src.dir}/classes">
+        	</jar>
+		<delete dir="${src.dir}/classes" />
+    	</target>
+	<target name="register" depends="jar">
+		<copy file="${jar.dir}/${ant.project.name}.jar" tofile="${java.dir}/${ant.project.name}.jar"/>
+	</target>
+
+	<target name="unregister">
+		<delete file="${registry.dir}/${ant.project.name}.jar"/>
+		<delete file="${java.dir}/${ant.project.name}.jar"/>
+	</target>
+</project>
+
+ 

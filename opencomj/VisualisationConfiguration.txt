@@ -1,0 +1,2 @@
+RVServerPort=10004
+RVServerAddress=148.88.224.80
